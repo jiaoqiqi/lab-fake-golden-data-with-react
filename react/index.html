@@ -40,7 +40,7 @@
             })
         },
 
-        display() {
+        play() {
             this.setState({
                 exit: !this.state.exit
 
@@ -52,7 +52,7 @@
                 return(
                         <div>
                             <div>
-                                <button onClick={() => this.display}>预览</button>
+                                <button onClick={() => this.play}>预览</button>
                             </div>
                             <div>
                                 {
@@ -80,7 +80,7 @@
             else {
                 return (
                         <div>
-                            <button onClick={ () => this.display()}>编辑</button>
+                            <button onClick={ () => this.play()}>编辑</button>
                             {
                                 this.state.froms.map(from => {
                                     if(from === 0){
