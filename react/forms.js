@@ -40,40 +40,41 @@ class App extends React.Component {
         if (this.state.flag) {
             return (
                 <div>
-                    <div className="preview">
+                    <div>
                         <div  role="group">
                             <button type="button"  onClick={()=>this.choosePage()}>预览</button>
                         </div>
                     </div>
                     <div className="row">
-                        <div>
+                        <div >
                             {this.state.forms.map((form, index)=> {
                                 if (form === 0) {
                                     return (
                                         <div>
-                                            <div className=" select">
+                                            <div >
                                                 <textarea type="text"/>
                                                 <button onClick={()=>this.deleteForm(index)}>delete</button>
                                             </div>
-
                                         </div>
                                     )
                                 } else {
                                     return (
 
                                         <div>
-                                            <div className=" select">
+                                            <div>
                                                 <input type="date"/>
                                                 <button onClick={()=>this.deleteForm(index)}>delete</button>
                                             </div>
                                         </div>
+
+
                                     )
                                 }
                             })}
 
                         </div>
                         <div className="col-md-4 select">
-                            <div role="group">
+                            <div  role="group">
                                 <button type="button"  onClick={()=>this.addText()}>
                                     文本框
                                 </button>
@@ -89,42 +90,35 @@ class App extends React.Component {
             );
         } else {
             return (
-                <div className="preview">
+                <div >
                     <div  role="group">
-                        <button type="button" onClick={()=>this.choosePage()}>编辑</button>
+                        <button type="button"  onClick={()=>this.choosePage()}>编辑</button>
                     </div>
                     <div>
-                        {this.state.forms.map((form, index)=> {
+                        {this.state.forms.map((form)=> {
                             if (form === 0) {
                                 return (
                                     <div>
-                                        <div className=" select container">
+                                        <div >
                                             <textarea type="text"/>
-
                                         </div>
-
                                     </div>
                                 )
                             } else {
                                 return (
                                     <div>
-                                        <div className=" select container">
+                                        <div>
                                             <input type="date"/>
-
                                         </div>
-
                                     </div>
-
                                 )
                             }
                         })}
-                        <div role="group">
-                            <button type="button" className="btn btn-success" onClick={()=>this.choosePage()}>提交</button>
-
+                        <div  role="group">
+                            <button type="button"  onClick={()=>this.choosePage()}>提交</button>
                         </div>
                     </div>
                 </div>
-
             )
         }
     }
