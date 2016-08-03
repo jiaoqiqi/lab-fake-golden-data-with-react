@@ -1,118 +1,131 @@
-class App extends React.Component{
-    constructor(props){
+class App extends React.Component {
+    constructor(props) {
         super(props);
-        this.state={
-            forms:[],
-            flag:true
+        this.state = {
+            forms: [],
+            flag: true
         }
     }
 
-    addText(){
+    addText() {
         this.setState(function () {
             let forms = this.state.forms;
             forms.push(0);
             let index = this.state.index++;
-            return {forms,index};
+            return {forms, index};
         })
     }
 
-    addDate(){
-        this.setState(function(){
+    addDate() {
+        this.setState(function () {
             let forms = this.state.forms;
             forms.push(1);
             let index = this.state.index++;
-            return {forms,index};
+            return {forms, index};
         })
     }
 
-    deleteForm(){
+    deleteForm(index) {
         this.setState(function () {
-            let forms = this.state.forms.splice(index,1);
+            let forms = this.state.forms.splice(index, 1);
             return forms;
         })
     }
-
-    choosePage(){
+    choosePage() {
         this.setState({
-            flag : !this.state.forms
+            flag: !this.state.flag
         })
     }
-
-    render(){
-        if(this.state.flag){
-            return(
+    render() {
+        if (this.state.flag) {
+            return (
                 <div>
                     <div className="preview">
-                        <div className="btn-group btn-group-lg " role="group">
-                            <button type="button"  onClick={() => {choosePage()}}>预览</button>
+                        <div  role="group">
+                            <button type="button"  onClick={()=>this.choosePage()}>预览</button>
                         </div>
                     </div>
-                    <div class = "row">
+                    <div className="row">
                         <div>
-                            {this.state.forms.map((form,index) => {
-                                if(form === 0){
-                                    return(
+                            {this.state.forms.map((form, index)=> {
+                                if (form === 0) {
+                                    return (
                                         <div>
                                             <div className=" select">
                                                 <textarea type="text"/>
                                                 <button onClick={()=>this.deleteForm(index)}>delete</button>
                                             </div>
+
                                         </div>
                                     )
-                                }else{
-                                    return(
-                                        <div>
-                                            <div className="selete">
-                                                <input type="date"/>
-                                                <button onClick={() => this.deleteForm(index)}>delete</button>
+                                } else {
+                                    return (
 
+                                        <div>
+                                            <div className=" select">
+                                                <input type="date"/>
+                                                <button onClick={()=>this.deleteForm(index)}>delete</button>
                                             </div>
                                         </div>
                                     )
                                 }
                             })}
-                        </div>
-                        <div>
-                            <div>
-                                <button onClick={() => this.addText()}>文本框</button>
-                            </div>
 
-                            <div>
-                                <button onClick={()=> this.addDate()}>日期</button>
+                        </div>
+                        <div className="col-md-4 select">
+                            <div role="group">
+                                <button type="button"  onClick={()=>this.addText()}>
+                                    文本框
+                                </button>
+                            </div>
+                            <div  role="group">
+                                <button type="button"  onClick={()=>this.addDate()}>
+                                    日期选择框
+                                </button>
                             </div>
                         </div>
                     </div>
-
                 </div>
-            )
-        }else{
-            return <div>
-                <div>
-                    <button type="button" onClick={() => this.choosePage()}>编辑</button>
-                </div>
-                <div>
-                    {
-                        this.state.forms.map((form,index) => {
-                            if(form === 0){
-                                return <div>
-                                    <div className="select container">
-                                        <textarea type="text"/>
-                                    </div>
-                                </div>
-                            }else{
-                                <div>
-                                    <div className="select container">
-                                        <input type="date"/>
-                                    </div>
-                                </div>
-                            }
-                        })
-                    }
+            );
+        } else {
+            return (
+                <div className="preview">
+                    <div  role="group">
+                        <button type="button" onClick={()=>this.choosePage()}>编辑</button>
+                    </div>
                     <div>
-                        <button onClick={()=> this.choosePage()}>提交</button>
+                        {this.state.forms.map((form, index)=> {
+                            if (form === 0) {
+                                return (
+                                    <div>
+                                        <div className=" select container">
+                                            <textarea type="text"/>
+
+                                        </div>
+
+                                    </div>
+                                )
+                            } else {
+                                return (
+                                    <div>
+                                        <div className=" select container">
+                                            <input type="date"/>
+
+                                        </div>
+
+                                    </div>
+
+                                )
+                            }
+                        })}
+                        <div role="group">
+                            <button type="button" className="btn btn-success" onClick={()=>this.choosePage()}>提交</button>
+
+                        </div>
                     </div>
                 </div>
-            </div>
+
+            )
         }
     }
 }
