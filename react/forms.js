@@ -73,15 +73,15 @@ class App extends React.Component {
                             })}
 
                         </div>
-                        <div className="col-md-4 select">
+                        <div>
                             <div  role="group">
                                 <button type="button"  onClick={()=>this.addText()}>
-                                    文本框
+                                    文本
                                 </button>
                             </div>
                             <div  role="group">
                                 <button type="button"  onClick={()=>this.addDate()}>
-                                    日期选择框
+                                    日期
                                 </button>
                             </div>
                         </div>
