@@ -1,106 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>选择添加表单</title>
     <meta charset="utf-8">
-    <script src="../build/react.js"></script>
-    <script src="../build/react-dom.js"></script>
-    <script src="../build/browser.min.js"></script>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
-    <script src="calculate.js"></script>
 </head>
 <body>
+<script src="../build/react.js"></script>
+<script src="../build/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+
 <div id="fake-golden-data-with-react"></div>
-<script type="text/babel">
-    const App = React.createClass({
-        getInitialState: function () {
-            return this.state={
-                froms: [],
-                exit: true
-            }
-        },
-
-        addText() {
-            this.setState({
-                froms: getNewFroms(this.state.froms, 0),
-                index: this.state.index++
-            })
-        },
-
-        addDate() {
-            this.setState({
-                froms: getNewFroms(this.state.froms, 1),
-                index: this.state.index++
-            })
-        },
-
-        deleteItem(index) {
-
-            this.setState({
-                froms: deleteFrom(this.state.froms, index)
-            })
-        },
-
-        play() {
-            this.setState({
-                exit: !this.state.exit
-
-            })
-        },
-
-        render : function () {
-            if(this.state.exit){
-                return(
-                        <div>
-                            <div>
-                                <button onClick={() => this.play}>预览</button>
-                            </div>
-                            <div>
-                                {
-                                    this.state.forms.map((from,index) => {
-                                        if(from === 0) {
-                                            return <div>
-                                                <input type="text"/>
-                                                <button onClick={() => this.deleItem(index) }>删除</button>
-                                            </div>
-
-                                        }
-                                    })
-                                }
-                            </div>
-
-                            <div>
-                                <div>
-                                    <button onClick={() => this.addText()}>文本</button>
-                                </div>
-                                <button onClick={() => this.addDate()}>日期</button>
-                            </div>
-                        </div>
-                )
-            }
-            else {
-                return (
-                        <div>
-                            <button onClick={ () => this.play()}>编辑</button>
-                            {
-                                this.state.froms.map(from => {
-                                    if(from === 0){
-                                        return <div><input type="text"/></div>
-                                    }
-                                    else{
-                                        return <div><input type="date"/></div>
-                                    }
-                                })
-                            }
-                        </div>
-                )
-            }
-        }
+<script type="text/babel" src="forms.js">
 
 
-    });
-
-    ReactDOM.render(<App />,
-            document.getElementById('fake-golden-data-with-react'));
 </script>
 </body>
 </html>
