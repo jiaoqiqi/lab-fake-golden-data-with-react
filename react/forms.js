@@ -123,6 +123,5 @@ class App extends React.Component {
         }
     }
 }
-
 ReactDOM.render(<App />,
     document.getElementById('fake-golden-data-with-react'));
