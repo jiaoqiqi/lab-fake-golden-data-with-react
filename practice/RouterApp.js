@@ -91,8 +91,7 @@ const Previewer = React.createClass({
             <button>Submit</button>
         </div>;
     }
-});
-
+})
 
 ReactDOM.render(<ReactRouter.Router>
     <ReactRouter.Route path="/" component={App}>
