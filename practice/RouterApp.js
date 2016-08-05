@@ -1,35 +1,32 @@
 const App = React.createClass({
-    getInitialState: function() {
+    getInitialState: function () {
         return {
             isEditor: true,
             elements: []
         }
     },
-    toggle: function () {
-        this.setState({
-            isEditor: !this.state.isEditor
-        });
-    },
-    addElement: function(element) {
+
+    addElement: function (element) {
         const elements = this.state.elements;
         elements.push(element);
         this.setState({elements});
     },
+
     deleteElement: function (index) {
         const elements = this.state.elements;
         elements.splice(index, 1);
         this.setState({elements});
     },
-    render: function() {
+
+    render: function () {
         const isEditor = this.state.isEditor;
         return <div>
-            <button onClick={this.toggle}>{isEditor ? "Preview" : "Edit"}</button>
-            <div className={isEditor ? "" : "hidden"}>
-                <Editor elements={this.state.elements} onAdd={this.addElement} onDelete={this.deleteElement} />
-            </div>
-            <div className={isEditor ? "hidden" : ""}>
-                <Previewer elements={this.state.elements} />
-            </div>
+            {this.props.children && React.cloneElement(this.props.children, {
+                elements: this.state.elements,
+                onAdd: this.addElement,
+                onDelete: this.deleteElement
+            })}
+
         </div>;
     }
 });
@@ -37,18 +34,21 @@ const App = React.createClass({
 const Editor = React.createClass({
     render: function () {
         return <div>
-            <Left elements={this.props.elements} onDelete={this.props.onDelete} />
+            <ReactRouter.Link to="/Previewer">
+                <button>Previewer</button>
+            </ReactRouter.Link>
+            <Left elements={this.props.elements} onDelete={this.props.onDelete}/>
             <Right onAdd={this.props.onAdd}/>
         </div>;
-        
+
     }
 });
 
 const Left = React.createClass({
-    remove: function(index) {
+    remove: function (index) {
         this.props.onDelete(index);
     },
-    render: function() {
+    render: function () {
         const elements = this.props.elements.map((ele, index) => {
             return <div key={index}>
                 <input type={ele}/>
@@ -67,10 +67,10 @@ const Right = React.createClass({
         const element = $("input[name=element]:checked").val();
         this.props.onAdd(element);
     },
-    render: function() {
+    render: function () {
         return <div>
-            <input type="radio" name="element" value="text" />Text
-            <input type="radio" name="element" value="date" />Date
+            <input type="radio" name="element" value="text"/>Text
+            <input type="radio" name="element" value="date"/>Date
             <button onClick={this.add}>+</button>
         </div>
     }
@@ -84,6 +84,9 @@ const Previewer = React.createClass({
             </div>;
         });
         return <div>
+            <ReactRouter.Link to="/">
+                <button>Edit</button>
+            </ReactRouter.Link>
             {elements}
             <button>Submit</button>
         </div>;
@@ -91,5 +94,9 @@ const Previewer = React.createClass({
 });
 
 
-
-ReactDOM.render(<App />, document.getElementById('content'));
+ReactDOM.render(<ReactRouter.Router>
+    <ReactRouter.Route path="/" component={App}>
+        <ReactRouter.IndexRoute component={Editor}/>
+        <ReactRouter.Route path="Previewer" component={Previewer}/>
+    </ReactRouter.Route>
+</ReactRouter.Router>, document.getElementById('content'));
